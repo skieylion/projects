@@ -11,6 +11,11 @@ import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.net.URL;
 import java.io.InputStreamReader;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
+import javax.xml.bind.*;
+
+import tdata.*;
 
 /**
  * Servlet implementation class IndexPage
@@ -49,7 +54,61 @@ public class IndexPage extends HttpServlet {
 					sb.append(line);
 				}
 				
-				System.out.println(sb);
+				String str=sb.toString();
+				Charset utf8=Charset.forName("Windows-1251");
+				byte[] bytes=str.getBytes(utf8);
+				ByteArrayInputStream byteArray=new ByteArrayInputStream(bytes);
+				
+				JAXBContext jc=JAXBContext.newInstance(ValCurs.class);
+				Unmarshaller ums=jc.createUnmarshaller();
+				ValCurs vc=(ValCurs)ums.unmarshal(byteArray);
+				
+				//response.setContentType("html/text");
+				response.setCharacterEncoding("Windows-1251");
+				
+				response.getWriter().append("<table border=1>");
+				
+					response.getWriter().append("<thead>");
+						response.getWriter().append("<th>");
+							response.getWriter().append("Букв. код");
+						response.getWriter().append("</th>");
+						response.getWriter().append("<th>");
+							response.getWriter().append("Единиц");
+						response.getWriter().append("</th>");
+						response.getWriter().append("<th>");
+							response.getWriter().append("Валюта");
+						response.getWriter().append("</th>");
+						response.getWriter().append("<th>");
+							response.getWriter().append("Курс");
+						response.getWriter().append("</th>");
+					response.getWriter().append("</thead>");
+					
+					response.getWriter().append("<tbody>");
+					
+						for(int i=0;i<vc.getValute().size();i++) {
+							ValCurs.Valute v=vc.getValute().get(i);
+							response.getWriter().append("<tr>");
+								response.getWriter().append("<td>");
+									response.getWriter().append(v.getCharCode());
+								response.getWriter().append("</td>");
+								response.getWriter().append("<td>");
+									response.getWriter().append(String.valueOf(v.getNominal()));
+								response.getWriter().append("</td>");
+								response.getWriter().append("<td>");
+									response.getWriter().append(v.getName());
+								response.getWriter().append("</td>");
+								response.getWriter().append("<td>");
+									response.getWriter().append(v.getValue());
+								response.getWriter().append("</td>");
+							response.getWriter().append("</tr>");
+						}
+						
+					response.getWriter().append("</tbody>");
+					
+				response.getWriter().append("</table>");
+				
+				
+				
 			}
 			
 		} catch (Exception e) {
@@ -59,9 +118,6 @@ public class IndexPage extends HttpServlet {
 				connect.disconnect();
 			}
 		}
-		
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
