@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<% 
+	<%
 	String redirect="IndexPage";
 	response.sendRedirect(redirect);
 	%>
