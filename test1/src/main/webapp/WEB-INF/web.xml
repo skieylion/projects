@@ -5,5 +5,9 @@
          id="WebApp_ID" version="3.1">
 
     <display-name>spring-mvc-app1</display-name>
-
+    
+    <servlet-mapping>
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>/resources/*</url-pattern>
+	</servlet-mapping>
 </web-app>
