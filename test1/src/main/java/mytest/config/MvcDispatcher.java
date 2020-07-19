@@ -7,6 +7,7 @@ public class MvcDispatcher extends AbstractAnnotationConfigDispatcherServletInit
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
+		//return new Class[] {DataConfig.class};
 		return null;
 	}
 

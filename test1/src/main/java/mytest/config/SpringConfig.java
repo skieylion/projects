@@ -27,6 +27,8 @@ public class SpringConfig implements WebMvcConfigurer {
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setCacheable(false);
+        templateResolver.setCharacterEncoding("UTF-8");
         templateResolver.setPrefix("/views/");
         templateResolver.setSuffix(".html");
         return templateResolver;
@@ -43,12 +45,14 @@ public class SpringConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         registry.viewResolver(resolver);
     }
     
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    	System.out.println("123");
     	registry.addResourceHandler("/scripts/**")
-        .addResourceLocations("/WEB-INF/scripts/").setCachePeriod(31556926);
+        .addResourceLocations("/WEB-INF/scripts/");
+    	registry.addResourceHandler("/styles/**")
+        .addResourceLocations("/WEB-INF/styles/");
     }
 }
