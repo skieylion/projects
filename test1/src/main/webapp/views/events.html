@@ -1,8 +1,25 @@
-<html>
+<html ng-app="ListEvents">
 <head>
 	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/test1/styles/events.css">
+	
 </head>
-<body>
-события
+<body >
+	<table
+		id="tableEvents"
+		data-check="true"
+		data-pagination-prev-title="Назад"
+		data-pagination-next-title="Вперед"
+		data-table-search-title="Найти:"
+		data-table-rows-count-title="Показать записей:"
+		data-table-info-title="Показано от $1 до $2 из $3 записей"
+		class="table striped" 
+		data-role="table"
+		data-source="/test1/get-tasks" >
+	</table>	
+	<butto id="buttonRemove" class="button primary">Удалить задачи</button>
+	
+<script src="/test1/scripts/events.js"></script>
 </body>
+
 </html>

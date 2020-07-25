@@ -1,11 +1,19 @@
 package mytest.adapters;
 
+import java.sql.Date;
 
 public class EventAdapter {
 	private String typeEvent;
 	private String nameTask;
 	private String descriptionTask;
+	private Date dueDateTask;
 	
+	public Date getDueDateTask() {
+		return dueDateTask;
+	}
+	public void setDueDateTask(Date dueDateTask) {
+		this.dueDateTask = dueDateTask;
+	}
 	public String getTypeEvent() {
 		return typeEvent;
 	}
@@ -24,4 +32,5 @@ public class EventAdapter {
 	public void setDescriptionTask(String descriptionTask) {
 		this.descriptionTask = descriptionTask;
 	}
+	
 }

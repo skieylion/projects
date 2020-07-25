@@ -80,5 +80,62 @@ const create_events = {
 	]
 }
 
+const events = {
+	entry:'./src/main/js/events.js',
+	output:{
+		filename:'events.js',
+		path:path.resolve(__dirname,'src/main/webapp/WEB-INF/scripts'),
+		library:'EventsTable',
+    	libraryTarget:'umd',
+    	libraryExport:"default"
+	},
+	optimization: {
+		// We no not want to minimize our code.
+		minimize: false
+	},
+	module:{
+		rules:[
+			{
+				test: /\.(png|jpg|gif|svg|ttf|woff)$/i,
+				use: [
+				  {
+					loader: 'url-loader',
+					options: {
+					  limit: 999999
+					}
+				  }
+				]
+			},
+			{
+		        test: /\.js$/,
+		        enforce: 'pre',
+		        use: ['source-map-loader'],
+		      },
+			{
+			    test: /\.less$/,
+			    use:[ 'style-loader','css-loader','less-loader'] // compiles Less to CSS
+			  },
+			{
+				test:/\.css$/,
+				use:[
+					{
+						loader:MiniCssExtractPlugin.loader,
+					},
+					'css-loader',
+				]
+				
+			}
+			 
+		]
+	},
+	plugins:[
+		new MiniCssExtractPlugin(
+			{
+				filename:'../styles/events.css',
+			}
+		)
+	]
+}
 
-module.exports = [home,create_events];
+
+module.exports = [home,events,create_events];

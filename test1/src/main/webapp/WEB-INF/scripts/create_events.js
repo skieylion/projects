@@ -10989,7 +10989,8 @@ ngModule.controller('CreateEventCtrl',["$scope","$http", function($scope,$http) 
 		var myData={
 			typeEvent:s.typeEvent,
 			nameTask:s.nameTask,
-			descriptionTask:s.descriptionTask
+			descriptionTask:s.descriptionTask,
+			dueDateTask:s.dueDateTask
 		};
 		
 		$http.post(
@@ -10999,6 +11000,8 @@ ngModule.controller('CreateEventCtrl',["$scope","$http", function($scope,$http) 
 				headers: {'Content-Type': 'application/json','Accept':'application/json'}
 			}
 		).then(function(response) {
+			alert("Событие создано");
+			console.log(123);
 			console.log(response);
 		},function(err){
 			console.log("error:",err);
