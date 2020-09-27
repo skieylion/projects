@@ -205,7 +205,7 @@ public class MyServlet extends HttpServlet {
 
 }
 
-class Person {
+class Person2 {
 	@NotNull
 	@Pattern(regexp="[A-Z][a-z]*")
 	String name;
