@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.decorator.Decorator;
 import javax.decorator.Delegate;
-import javax.ejb.Remove;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -38,8 +37,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import java.lang.annotation.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -197,6 +204,31 @@ public class MyServlet extends HttpServlet {
 	}
 
 }
+
+class Person {
+	@NotNull
+	@Pattern(regexp="[A-Z][a-z]*")
+	String name;
+	@Pattern.List({
+		@Pattern(regexp="[A-Z][a-z]*"),
+		@Pattern(regexp="")
+	})
+	String second_name;
+	@Min(18)
+	int age;
+	@Size(max=200,min=10)
+	String description;
+	@Past
+	Date date1;
+	@Future
+	Date date2;
+	String sername;
+	@NotNull
+	public String getName() {
+		return sername;
+	}
+}
+
 
 
 @Qualifier

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://bpmEventManager.pecom.ru/model/notification" targetNamespace="http://bpmEventManager.pecom.ru/model/notification"  attributeFormDefault="qualified" elementFormDefault="qualified"  version="1.0">
+	
+	<xs:element name="CustomerNotifyStatus" type="CustomerNotifyStatus"/>
+	
+	<xs:complexType name="CustomerNotifyStatus">
+        <xs:sequence>
+            <xs:element name="isCancel" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1" />
+            <xs:element name="branchId" type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" />
+            <xs:element name="description" type="xs:string" nillable="false" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
