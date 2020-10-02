@@ -6,6 +6,8 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.net.URL;
+import test.CheckSite;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -14,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -121,6 +125,14 @@ public class MyServlet2 extends HttpServlet {
 		}
 		System.out.println("****************************");
 		
+		Set<ConstraintViolation<MyPerson2>> site=vl.validateValue(MyPerson2.class, "site","muasd.ru");
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
+		for(ConstraintViolation<MyPerson2> violation:site) {
+			System.out.println(violation.getMessage());
+			System.out.println(violation.getInvalidValue());
+		}
+		System.out.println("++++++++++++++++++++++++++++++++++++++");
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -144,7 +156,10 @@ class MyPerson{
 
 class MyPerson2 {
 	@CheckEmail
-	String email;
+	public String email;
+	
+	@CheckSite(host="mysite.com")
+	public String site;
 }
 
 @Qualifier
@@ -160,6 +175,8 @@ class MyValidator {
 		return vl;
 	}
 }
+
+
 
 
 
