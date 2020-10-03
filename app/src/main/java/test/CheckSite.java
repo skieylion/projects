@@ -13,7 +13,7 @@ import test.CheckSiteLogic;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD,ElementType.TYPE,ElementType.METHOD})
 public @interface CheckSite {
-	String message() default "Site address doesn't took good";
+	String message() default "${javax.validation.constraints.url.port.message} !!!!!!!";
 	Class<?>[] groups() default{};
 	Class<? extends Payload>[] payload() default{};
 	int port() default -1;

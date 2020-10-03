@@ -28,8 +28,8 @@ public class CheckSiteLogic implements ConstraintValidator<CheckSite,String> {
 			return false;
 		}
 		if(port!=-1&&port!=url.getPort()) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate("port invalid").addConstraintViolation();		
+			//context.disableDefaultConstraintViolation();
+			//context.buildConstraintViolationWithTemplate("port invalid").addConstraintViolation();		
 			return false;
 		}
 		return true;
