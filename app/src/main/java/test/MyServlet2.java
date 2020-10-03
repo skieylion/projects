@@ -7,6 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.net.URL;
+import java.time.LocalDate;
+
 import test.CheckSite;
 
 import javax.annotation.Resource;
@@ -83,6 +85,9 @@ public class MyServlet2 extends HttpServlet {
 	@Inject
 	Validator vl;
 	
+	@Inject
+	MyValidate mv;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -133,6 +138,27 @@ public class MyServlet2 extends HttpServlet {
 		}
 		System.out.println("++++++++++++++++++++++++++++++++++++++");
 		
+		System.out.println("???????????????????????????????????????????");
+		mv.setBithDate(LocalDate.of(2020, 9, 20));
+		mv.setDeathDate(LocalDate.of(2010, 9, 30));
+		
+		Set<ConstraintViolation<MyValidate>> mv_validate=vl.validate(mv);
+		for(ConstraintViolation<MyValidate> violation:mv_validate) {
+			System.out.println(violation.getMessage());
+			System.out.println(violation.getInvalidValue());
+		}
+		System.out.println("???????????????????????????????????????????");
+		
+		System.out.println("/////////////////////////////////////////");
+		Set<ConstraintViolation<Child4>> child4=vl.validateValue(Child4.class, "name",null);
+		
+		for(ConstraintViolation<Child4> violation:child4) {
+			System.out.println(violation.getMessage());
+			System.out.println(violation.getInvalidValue());
+		}
+		System.out.println("/////////////////////////////////////////");
+		
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -176,8 +202,40 @@ class MyValidator {
 	}
 }
 
+@ChronDates
+class MyValidate {
+	LocalDate bithDate;
+	LocalDate deathDate;
+	public LocalDate getBithDate() {
+		return bithDate;
+	}
+	public void setBithDate(LocalDate bithDate) {
+		this.bithDate = bithDate;
+	}
+	public LocalDate getDeathDate() {
+		return deathDate;
+	}
+	public void setDeathDate(LocalDate deathDate) {
+		this.deathDate = deathDate;
+	}
+	
+}
 
+class Person4 {
+	@NotNull
+	String name;
 
+	
+}
 
+class Child4 extends Person4 {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
 
 
