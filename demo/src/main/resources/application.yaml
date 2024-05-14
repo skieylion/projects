@@ -1,0 +1,7 @@
+server:
+  port: 7997
+spring:
+  application:
+    name: demo
+app:
+  secret: secret
